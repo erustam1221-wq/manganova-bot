@@ -4,792 +4,398 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MangaNova</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-
     body {
-      background: #09090d;
-      color: #fff;
-      padding: 16px;
-      padding-bottom: 80px;
-    }
-
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
-      color: #fff;
-      cursor: pointer;
+      background-color: #0b0b12;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    .logo span {
-      color: #8b5cf6;
-    }
-
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #2a2a38;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border: 1px solid #8b5cf6;
-    }
-
-    .search-box {
-      background: #12131a;
-      border: 1px solid #1e202e;
-      border-radius: 12px;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .search-box input {
-      background: none;
-      border: none;
-      outline: none;
-      color: #fff;
-      font-size: 14px;
-      width: 100%;
-    }
-
-    .search-box input::placeholder {
-      color: #525266;
-    }
-
-    .banner {
-      background: linear-gradient(135deg, #1b132e 0%, #12131a 100%);
-      border: 1px solid #2d224d;
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 24px;
-    }
-
-    .banner-badge {
-      background: #7c3aed;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 6px;
-      display: inline-block;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    .banner-title {
-      font-size: 24px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .banner-desc {
-      font-size: 12px;
-      color: #94a3b8;
-      line-height: 1.5;
-      margin-bottom: 16px;
-    }
-
-    .btn-primary {
-      background: #8b5cf6;
-      color: #fff;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .btn-secondary {
-      background: #1e202e;
-      color: #fff;
-      border: 1px solid #2d224d;
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .section-title {
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .manga-grid {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      margin-bottom: 24px;
-      padding-bottom: 4px;
-    }
-
-    .manga-grid::-webkit-scrollbar {
+    .hide-scrollbar::-webkit-scrollbar {
       display: none;
     }
-
-    .card {
-      min-width: 110px;
-      max-width: 110px;
-      background: #12131a;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid #1e202e;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .cover {
-      height: 140px;
-      background: #1a1c29;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: #8b5cf6;
-      font-size: 20px;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .card-info {
-      padding: 10px 8px;
-    }
-
-    .card-title {
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-bottom: 4px;
-    }
-
-    .rating {
-      font-size: 11px;
-      color: #eab308;
-    }
-
-    .page {
-      display: block;
-    }
-
-    .page.hidden {
-      display: none;
-    }
-
-    .profile-head {
-      text-align: center;
-      margin: 20px 0 30px;
-    }
-
-    .big-profile {
-      width: 70px;
-      height: 70px;
-      background: #1e202e;
-      border-radius: 50%;
-      margin: 0 auto 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-    }
-
-    .menu-box {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .menu-item {
-      background: #12131a;
-      border: 1px solid #1e202e;
-      padding: 14px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #fff;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .menu-icon {
-      font-size: 18px;
-      color: #8b5cf6;
-    }
-
-    .menu-text {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .menu-text small {
-      display: block;
-      color: #666;
-      font-size: 11px;
-      font-weight: normal;
-      margin-top: 2px;
-    }
-
-    .back {
-      background: none;
-      border: none;
-      color: #8b5cf6;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-bottom: 15px;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      color: #94a3b8;
-      margin-bottom: 6px;
-    }
-
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%;
-      background: #12131a;
-      border: 1px solid #1e202e;
-      border-radius: 10px;
-      padding: 12px;
-      color: #fff;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      border-color: #8b5cf6;
-    }
-
-    .chapters-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 15px;
-    }
-
-    .chapter-item {
-      background: #12131a;
-      border: 1px solid #1e202e;
-      padding: 12px 16px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .reader-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-    }
-
-    .reader-container img {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-      display: block;
-    }
-
-    .reader-nav {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      gap: 10px;
-    }
-
-    .user-rating-box {
-      background: #12131a;
-      border: 1px solid #1e202e;
-      padding: 15px;
-      border-radius: 12px;
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .rating-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    .rate-btn {
-      background: #1e202e;
-      color: #fff;
-      border: 1px solid #2d224d;
-      padding: 6px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .rate-btn:hover {
-      background: #8b5cf6;
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
-  <!-- BOSH SAHIFA -->
-  <main id="homePage" class="page">
-    <div class="top-bar">
-      <div class="logo" id="logoBtn">Manga<span>Nova</span></div>
-      <div class="avatar" onclick="showProfile()">👤</div>
-    </div>
-
-    <div class="search-box">
-      <span>🔍</span>
-      <input type="text" id="searchInput" oninput="searchManga()" placeholder="Manga qidirish...">
-    </div>
-
-    <div class="banner">
-      <div class="banner-badge">BUGUNGI TAVSIYA</div>
-      <div class="banner-title">Solo Leveling</div>
-      <div class="banner-desc">Sung Jin-Woo — eng zaif ovchidan eng kuchli jangchiga aylangan qahramon.</div>
-      <button class="btn-primary" onclick="alert('O‘qish boshlandi!')">O‘qishni boshlash →</button>
-    </div>
-
-    <section>
-      <div class="section-header">
-        <div class="section-title">🔥 Barcha Mangalar</div>
-      </div>
-      <div class="manga-grid" id="popularGrid"></div>
-    </section>
-  </main>
-
-  <!-- MANGA DETAIL -->
-  <main id="mangaDetailPage" class="page hidden">
-    <button class="back" onclick="showHome()">← Orqaga</button>
-    <div id="mangaDetailContent"></div>
-
-    <div class="user-rating-box">
-      <p style="font-size: 13px; font-weight: 600; color: #94a3b8;">Ushbu mangaga o'z bahoingizni bering:</p>
-      <div class="rating-buttons">
-        <button class="rate-btn" onclick="rateManga(1)">1</button>
-        <button class="rate-btn" onclick="rateManga(2)">2</button>
-        <button class="rate-btn" onclick="rateManga(3)">3</button>
-        <button class="rate-btn" onclick="rateManga(4)">4</button>
-        <button class="rate-btn" onclick="rateManga(5)">5</button>
-        <button class="rate-btn" onclick="rateManga(6)">6</button>
-        <button class="rate-btn" onclick="rateManga(7)">7</button>
-        <button class="rate-btn" onclick="rateManga(8)">8</button>
-        <button class="rate-btn" onclick="rateManga(9)">9</button>
-        <button class="rate-btn" onclick="rateManga(10)">10</button>
-      </div>
-    </div>
-
-    <h3 style="margin-top: 20px; font-size: 15px; font-weight: 700;">📖 Boblar:</h3>
-    <div class="chapters-list" id="chaptersList"></div>
-  </main>
-
-  <!-- MANGA READER -->
-  <main id="readerPage" class="page hidden">
-    <button class="back" onclick="openMangaDetail(currentManga.id)">← Boblarga qarash</button>
-    <h3 id="readerTitle" style="font-size: 16px; margin-bottom: 15px; text-align: center;"></h3>
+  <!-- Asosiy konteyner -->
+  <div id="app" class="flex-1 flex flex-col max-w-md mx-auto w-full relative pb-16">
     
-    <div class="reader-container" id="readerImages"></div>
-
-    <div class="reader-nav">
-      <button class="btn-secondary" style="flex:1" onclick="prevChapter()">← Oldingi bob</button>
-      <button class="btn-primary" style="flex:1" onclick="nextChapter()">Keyingi bob →</button>
-    </div>
-  </main>
-
-  <!-- ADMIN PANEL -->
-  <main id="addMangaPage" class="page hidden">
-    <button class="back" onclick="showHome()">← Orqaga</button>
-    <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 20px;">🔒 Admin Panel</h2>
-    
-    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-      <button class="btn-primary" style="flex:1" onclick="switchAdminTab('manga')">Manga qo'shish</button>
-      <button class="btn-secondary" style="flex:1" onclick="switchAdminTab('chapter')">Bob qo'shish</button>
-    </div>
-
-    <!-- MANGA FORM -->
-    <div id="adminMangaForm">
-      <div class="form-group">
-        <label>Manga nomi (Title)</label>
-        <input type="text" id="mangaTitle" placeholder="Masalan: Solo Leveling">
+    <!-- Yuqori panel (Top Bar) -->
+    <header class="flex items-center justify-between p-4 bg-[#12121f]/90 backdrop-blur-md sticky top-0 z-40 border-b border-gray-800/50">
+      <div class="flex items-center gap-2">
+        <span class="text-xl font-bold bg-gradient-to-r from-purple-500 to-indigo-400 bg-clip-text text-transparent">MangaNova</span>
       </div>
-      <div class="form-group">
-        <label>Janri (Genre)</label>
-        <input type="text" id="mangaGenre" placeholder="Masalan: Action, Fantasy">
-      </div>
-      <div class="form-group">
-        <label>Boshlang'ich Reyting (Masalan: 8.9)</label>
-        <input type="text" id="mangaRating" value="8.9" placeholder="8.9">
-      </div>
-      <div class="form-group">
-        <label>Rasm havolasi (Cover Image URL)</label>
-        <input type="text" id="mangaImg" placeholder="https://... rasm linki">
-      </div>
-      <div class="form-group">
-        <label>Tavsif (Description)</label>
-        <textarea id="mangaDesc" rows="3" placeholder="Manga haqida qisqacha..."></textarea>
-      </div>
-      <button class="btn-primary" style="width: 100%; padding: 14px;" onclick="addNewManga()">Bazaga qo'shish</button>
-    </div>
-
-    <!-- CHAPTER FORM -->
-    <div id="adminChapterForm" class="hidden">
-      <div class="form-group">
-        <label>Manganu tanlang</label>
-        <select id="selectMangaForChapter"></select>
-      </div>
-      <div class="form-group">
-        <label>Bob raqami (Chapter Number)</label>
-        <input type="number" id="chapterNum" placeholder="Masalan: 1">
-      </div>
-      <div class="form-group">
-        <label>Bob rasmlari havolalari (URL'larni vergul bilan ajrating)</label>
-        <textarea id="chapterPages" rows="5" placeholder="https://rasm1.jpg, https://rasm2.jpg"></textarea>
-      </div>
-      <button class="btn-primary" style="width: 100%; padding: 14px;" onclick="addNewChapter()">Bobni qo'shish</button>
-    </div>
-  </main>
-
-  <!-- PROFIL SAHIFASI -->
-  <main id="profilePage" class="page hidden">
-    <button class="back" onclick="showHome()">← Orqaga</button>
-    <div class="profile-head">
-      <div class="big-profile">👤</div>
-      <h2>MangaNova User</h2>
-      <p style="color:#888">@manganovauser</p>
-    </div>
-    <div class="menu-box">
-      <button class="menu-item" onclick="alert('Sevimlilar bo\'limi')">
-        <div class="menu-icon">♡</div>
-        <div class="menu-text">Sevimlilar<small>Saqlangan mangalar</small></div>
+      <button onclick="switchTab('catalog')" class="p-2 rounded-full bg-[#181828] text-gray-300 hover:text-white">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
       </button>
-    </div>
-  </main>
+    </header>
 
-  <script>
-    const ADMIN_PASSWORD = "Nurqul1201";
+    <!-- TAB 1: Bosh sahifa -->
+    <main id="tab-home" class="tab-content p-4 space-y-6 flex-1">
+      <!-- Banner / Bugungi tavsiya -->
+      <div class="relative rounded-2xl overflow-hidden border border-purple-500/20 p-5 flex flex-col justify-end min-h-[170px] bg-cover bg-center" style="background-image: linear-gradient(to top, rgba(11,11,18,0.95), rgba(11,11,18,0.3)), url('https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png');">
+        <span class="text-[10px] font-semibold uppercase tracking-wider text-purple-400 mb-1">BUGUNGI TAVSIYA</span>
+        <h2 class="text-xl font-bold mb-1">Solo Leveling</h2>
+        <p class="text-xs text-gray-300 mb-4 line-clamp-2">Sung Jin-Woo — eng zaif ovchidan eng kuchli jangchiga aylangan...</p>
+        <button onclick="openPage('page-detail')" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold py-2.5 px-4 rounded-xl w-fit flex items-center gap-2 transition">
+          O'qishni boshlash <span>→</span>
+        </button>
+      </div>
 
-    const SUPABASE_URL = 'https://sswzyuvyorbjusnwrzde.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNzd3p5dXZ5b3JianVzbndyemRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NTUzNzcsImV4cCI6MjEwNjQzMTM3N30.Rzp9NS1ygmc1bV0CSVMMiZyyZk9Hj55PXstfgkjQPQs';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    let allMangas = [];
-    let currentManga = null;
-    let currentChapterNum = 1;
-    let currentMangaChapters = [];
-
-    let clickCount = 0;
-    let clickTimer;
-
-    document.getElementById('logoBtn').addEventListener('click', () => {
-      clickCount++;
-      clearTimeout(clickTimer);
-
-      if (clickCount === 3) {
-        clickCount = 0;
-        const inputPass = prompt("Admin parolini kiriting:");
-        if (inputPass === ADMIN_PASSWORD) {
-          showAddManga();
-        } else if (inputPass !== null) {
-          alert("Xato parol!");
-        }
-      } else {
-        clickTimer = setTimeout(() => {
-          clickCount = 0;
-        }, 500);
-      }
-    });
-
-    function hideAllPages() {
-      document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
-    }
-
-    function showHome() {
-      hideAllPages();
-      document.getElementById('homePage').classList.remove('hidden');
-    }
-
-    function showProfile() {
-      hideAllPages();
-      document.getElementById('profilePage').classList.remove('hidden');
-    }
-
-    function showAddManga() {
-      hideAllPages();
-      document.getElementById('addMangaPage').classList.remove('hidden');
-      populateMangaSelect();
-    }
-
-    function switchAdminTab(tab) {
-      if(tab === 'manga') {
-        document.getElementById('adminMangaForm').classList.remove('hidden');
-        document.getElementById('adminChapterForm').classList.add('hidden');
-      } else {
-        document.getElementById('adminMangaForm').classList.add('hidden');
-        document.getElementById('adminChapterForm').classList.remove('hidden');
-        populateMangaSelect();
-      }
-    }
-
-    async function loadMangas() {
-      const { data, error } = await supabaseClient.from('mangas').select('*');
-      if (!error && data) {
-        allMangas = data;
-        renderMangas(allMangas);
-        populateMangaSelect();
-      }
-    }
-
-    function renderMangas(list) {
-      const popularGrid = document.getElementById('popularGrid');
-      popularGrid.innerHTML = '';
-
-      if (list.length === 0) {
-        popularGrid.innerHTML = '<p style="color:#666; font-size:12px;">Hozircha mangalar yo\'q</p>';
-        return;
-      }
-
-      list.forEach((item) => {
-        const initials = item.title ? item.title.substring(0, 2).toUpperCase() : 'MN';
-        const coverStyle = item.img ? `style="background-image: url('${item.img}')"` : '';
-        const coverText = item.img ? '' : initials;
-        const mangaRating = item.rating ? item.rating : '8.9';
-
-        popularGrid.innerHTML += `
-          <article class="card" onclick="openMangaDetail('${item.id}')">
-            <div class="cover" ${coverStyle}>${coverText}</div>
-            <div class="card-info">
-              <div class="card-title">${item.title}</div>
-              <div class="rating">★ ${mangaRating}</div>
+      <!-- Mashhur mangalar -->
+      <section>
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="font-bold text-sm flex items-center gap-2">🔥 Mashhur mangalar</h3>
+          <button onclick="switchTab('catalog')" class="text-xs text-purple-400">Hammasi →</button>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+            <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+              <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover" alt="One Piece">
+              <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 9.5</span>
             </div>
-          </article>
-        `;
-      });
-    }
-
-    async function openMangaDetail(mangaId) {
-      hideAllPages();
-      document.getElementById('mangaDetailPage').classList.remove('hidden');
-      
-      currentManga = allMangas.find(m => m.id == mangaId);
-      if (!currentManga) return;
-
-      const mangaRating = currentManga.rating ? currentManga.rating : '8.9';
-      
-      document.getElementById('mangaDetailContent').innerHTML = `
-        <div style="display:flex; gap:15px; margin-bottom:15px;">
-          <img src="${currentManga.img || ''}" style="width:100px; height:140px; border-radius:10px; object-fit:cover; background:#1a1c29;">
-          <div>
-            <h2 style="font-size:18px;">${currentManga.title}</h2>
-            <p style="color:#8b5cf6; font-size:12px; margin:5px 0;">Janri: ${currentManga.genre || 'Belgilanmagan'}</p>
-            <p style="color:#eab308; font-size:12px; margin-bottom:5px;">Reyting: ★ ${mangaRating}</p>
-            <p style="color:#888; font-size:12px; line-height:1.4;">${currentManga.desc || ''}</p>
+            <p class="text-xs font-medium truncate">One Piece</p>
+          </div>
+          <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+            <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+              <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover" alt="Jujutsu Kaisen">
+              <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 9.2</span>
+            </div>
+            <p class="text-xs font-medium truncate">Jujutsu Kaisen</p>
+          </div>
+          <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+            <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+              <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover" alt="Naruto">
+              <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 8.9</span>
+            </div>
+            <p class="text-xs font-medium truncate">Naruto</p>
           </div>
         </div>
-      `;
+      </section>
 
-      const { data, error } = await supabaseClient
-        .from('chapters')
-        .select('*')
-        .eq('manga_id', mangaId)
-        .order('chapter_num', { ascending: true });
-
-      const chaptersList = document.getElementById('chaptersList');
-      chaptersList.innerHTML = '';
-
-      if (data && data.length > 0) {
-        currentMangaChapters = data;
-        data.forEach(ch => {
-          chaptersList.innerHTML += `
-            <div class="chapter-item" onclick="openReader(${ch.chapter_num})">
-              <span>${ch.chapter_num}-bob</span>
-              <span style="color:#8b5cf6;">O'qish →</span>
+      <!-- Yangi qo'shilgan -->
+      <section>
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="font-bold text-sm flex items-center gap-2">⚡ Yangi qo'shilgan</h3>
+          <button onclick="switchTab('catalog')" class="text-xs text-purple-400">Hammasi →</button>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+            <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+              <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover" alt="Blue Lock">
+              <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 8.6</span>
             </div>
-          `;
-        });
-      } else {
-        chaptersList.innerHTML = '<p style="color:#666; font-size:12px;">Hozircha boblar qo\'shilmadi</p>';
-      }
-    }
+            <p class="text-xs font-medium truncate">Blue Lock</p>
+          </div>
+          <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+            <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+              <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover" alt="Chainsaw Man">
+              <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 8.8</span>
+            </div>
+            <p class="text-xs font-medium truncate">Chainsaw Man</p>
+          </div>
+          <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+            <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+              <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover" alt="Tokyo Revengers">
+              <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 8.4</span>
+            </div>
+            <p class="text-xs font-medium truncate">Tokyo Revengers</p>
+          </div>
+        </div>
+      </section>
+    </main>
 
-    async function rateManga(score) {
-      if (!currentManga) return;
+    <!-- TAB 2: Katalog -->
+    <main id="tab-catalog" class="tab-content hidden p-4 space-y-4 flex-1">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold">Katalog</h2>
+      </div>
+      <div class="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
+        <button class="bg-purple-600 text-white text-xs px-4 py-2 rounded-xl font-medium whitespace-nowrap">Manga</button>
+        <button class="bg-[#181828] text-gray-400 text-xs px-4 py-2 rounded-xl font-medium whitespace-nowrap">Manhwa</button>
+        <button class="bg-[#181828] text-gray-400 text-xs px-4 py-2 rounded-xl font-medium whitespace-nowrap">Manhua</button>
+      </div>
 
-      let currentRating = parseFloat(currentManga.rating) || 8.9;
-      let newRating = ((currentRating + score) / 2).toFixed(1);
+      <div class="grid grid-cols-2 gap-3">
+        <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+          <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+            <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover">
+            <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 9.5</span>
+          </div>
+          <p class="text-xs font-medium truncate">Solo Leveling</p>
+        </div>
+        <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+          <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+            <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover">
+            <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 9.5</span>
+          </div>
+          <p class="text-xs font-medium truncate">One Piece</p>
+        </div>
+        <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+          <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+            <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover">
+            <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 9.2</span>
+          </div>
+          <p class="text-xs font-medium truncate">Jujutsu Kaisen</p>
+        </div>
+        <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+          <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+            <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover">
+            <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 8.9</span>
+          </div>
+          <p class="text-xs font-medium truncate">Naruto</p>
+        </div>
+      </div>
+    </main>
 
-      const { error } = await supabaseClient
-        .from('mangas')
-        .update({ rating: String(newRating) })
-        .eq('id', currentManga.id);
+    <!-- TAB 3: Sevimlilar -->
+    <main id="tab-favs" class="tab-content hidden p-4 space-y-4 flex-1">
+      <h2 class="text-lg font-bold">Sevimli mangalar</h2>
+      <div class="grid grid-cols-2 gap-3">
+        <div onclick="openPage('page-detail')" class="cursor-pointer space-y-1.5">
+          <div class="aspect-[3/4] rounded-xl bg-gray-800 overflow-hidden relative">
+            <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover">
+            <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md text-[10px] px-1.5 py-0.5 rounded text-yellow-400 font-medium">★ 9.5</span>
+          </div>
+          <p class="text-xs font-medium truncate">Solo Leveling</p>
+        </div>
+      </div>
+    </main>
 
-      if (error) {
-        alert("Xatolik: " + error.message);
-      } else {
-        alert(`Rahmat! Siz ${score} baho berdingiz.`);
-        currentManga.rating = String(newRating);
-        loadMangas().then(() => {
-          openMangaDetail(currentManga.id);
-        });
-      }
-    }
+    <!-- TAB 4: Menyu -->
+    <main id="tab-menu" class="tab-content hidden p-4 space-y-4 flex-1">
+      <!-- Profil kartasi -->
+      <div onclick="openPage('page-profile')" class="flex items-center gap-3 p-3 bg-[#181828] rounded-2xl cursor-pointer border border-gray-800">
+        <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-12 h-12 rounded-full object-cover border-2 border-purple-500">
+        <div class="flex-1">
+          <h3 class="font-bold text-sm">MangaNova User</h3>
+          <p class="text-xs text-gray-400">@manganovauser</p>
+          <span class="inline-block bg-purple-600/30 text-purple-400 text-[10px] px-2 py-0.5 rounded mt-1">★ Premium</span>
+        </div>
+      </div>
 
-    function openReader(chapterNum) {
-      hideAllPages();
-      document.getElementById('readerPage').classList.remove('hidden');
-      currentChapterNum = chapterNum;
+      <!-- Menyu ro'yxati -->
+      <div class="space-y-1 bg-[#181828] rounded-2xl p-2 border border-gray-800">
+        <button onclick="switchTab('home')" class="w-full flex items-center justify-between p-3 hover:bg-gray-800/50 rounded-xl text-xs font-medium">
+          <span>🏠 Bosh sahifa</span>
+          <span class="text-gray-500">›</span>
+        </button>
+        <button onclick="switchTab('catalog')" class="w-full flex items-center justify-between p-3 hover:bg-gray-800/50 rounded-xl text-xs font-medium">
+          <span>📚 Mangalar</span>
+          <span class="text-gray-500">›</span>
+        </button>
+        <button onclick="switchTab('favs')" class="w-full flex items-center justify-between p-3 hover:bg-gray-800/50 rounded-xl text-xs font-medium">
+          <span>💜 Sevimlilar</span>
+          <span class="text-gray-500">›</span>
+        </button>
+        <button onclick="openPage('page-sub')" class="w-full flex items-center justify-between p-3 hover:bg-gray-800/50 rounded-xl text-xs font-medium text-purple-400">
+          <span>👑 Obuna sotib olish</span>
+          <span class="text-gray-500">›</span>
+        </button>
+        <button onclick="openPage('page-tg-channel')" class="w-full flex items-center justify-between p-3 hover:bg-gray-800/50 rounded-xl text-xs font-medium">
+          <span>📢 Telegram kanal</span>
+          <span class="text-gray-500">›</span>
+        </button>
+        <button onclick="openPage('page-tg-bot')" class="w-full flex items-center justify-between p-3 hover:bg-gray-800/50 rounded-xl text-xs font-medium">
+          <span>🤖 Telegram bot</span>
+          <span class="text-gray-500">›</span>
+        </button>
+      </div>
+    </main>
 
-      const chapter = currentMangaChapters.find(c => c.chapter_num == chapterNum);
-      document.getElementById('readerTitle').innerText = `${currentManga.title} - ${chapterNum}-bob`;
+    <!-- SAHIFA: Manga Batafsil (Sana va vaqtlar qaytarildi) -->
+    <div id="page-detail" class="hidden fixed inset-0 bg-[#0b0b12] z-50 overflow-y-auto max-w-md mx-auto">
+      <div class="relative h-64 bg-gray-800">
+        <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-full object-cover">
+        <button onclick="closePage('page-detail')" class="absolute top-4 left-4 p-2 rounded-full bg-black/50 text-white backdrop-blur-md">←</button>
+      </div>
+      <div class="p-4 space-y-4 -mt-6 relative bg-[#0b0b12] rounded-t-2xl">
+        <div class="flex items-center justify-between">
+          <h1 class="text-xl font-bold">Solo Leveling</h1>
+          <span class="text-yellow-400 text-xs font-bold">★ 9.5 (12.4K)</span>
+        </div>
+        
+        <div class="flex gap-2">
+          <span class="bg-gray-800 text-xs px-2.5 py-1 rounded-lg text-gray-300">Action</span>
+          <span class="bg-gray-800 text-xs px-2.5 py-1 rounded-lg text-gray-300">Fantasy</span>
+          <span class="bg-gray-800 text-xs px-2.5 py-1 rounded-lg text-gray-300">Drama</span>
+        </div>
 
-      const readerImages = document.getElementById('readerImages');
-      readerImages.innerHTML = '';
+        <p class="text-xs text-gray-400 leading-relaxed">Dunyodagi eng zaif ovchi Sung Jin-Woo sirli kuchga ega bo'lib, tobora kuchayib boradi. U o'zining kuchi orqali butun dunyoni o'zgartiradi.</p>
 
-      if (chapter && chapter.pages) {
-        let pagesArray = chapter.pages;
-        if (typeof pagesArray === 'string') {
-          try { pagesArray = JSON.parse(pagesArray); } catch(e) { pagesArray = pagesArray.split(','); }
-        }
-        if (Array.isArray(pagesArray)) {
-          pagesArray.forEach(imgUrl => {
-            readerImages.innerHTML += `<img src="${imgUrl.trim()}" alt="Manga Sahifasi">`;
-          });
-        }
-      } else {
-        readerImages.innerHTML = '<p style="color:#888;">Ushbu bob rasmlari topilmadi.</p>';
-      }
-    }
+        <!-- Statistika -->
+        <div class="grid grid-cols-3 gap-2 py-2 text-center bg-[#181828] rounded-xl border border-gray-800">
+          <div>
+            <p class="text-[10px] text-gray-400">Sevimlilar</p>
+            <p class="text-xs font-bold mt-0.5">12.4K</p>
+          </div>
+          <div>
+            <p class="text-[10px] text-gray-400">Reyting</p>
+            <p class="text-xs font-bold mt-0.5">9.5</p>
+          </div>
+          <div>
+            <p class="text-[10px] text-gray-400">O'qishlar</p>
+            <p class="text-xs font-bold mt-0.5">2.8M</p>
+          </div>
+        </div>
 
-    function nextChapter() {
-      const nextNum = currentChapterNum + 1;
-      const exists = currentMangaChapters.some(c => c.chapter_num == nextNum);
-      if (exists) {
-        openReader(nextNum);
-      } else {
-        alert("Bu oxirgi bob!");
-      }
-    }
+        <!-- Boblar ro'yxati (SANA VA VAQTLAR BILAN) -->
+        <div class="pt-2">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="font-bold text-sm">Boblar</h3>
+            <span class="text-xs text-gray-500">Jami 180 ta bob</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between p-3 bg-[#181828] rounded-xl border border-gray-800/50">
+              <div>
+                <p class="font-medium text-xs">1-bob - Uyg'og'dagi dunyo</p>
+                <p class="text-[10px] text-gray-500 mt-0.5">12-sent, 14:32</p>
+              </div>
+              <button onclick="openPage('page-reader')" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-4 py-1.5 rounded-lg font-medium transition">O'qish</button>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-[#181828] rounded-xl border border-gray-800/50">
+              <div>
+                <p class="font-medium text-xs">2-bob - Garovxona</p>
+                <p class="text-[10px] text-gray-500 mt-0.5">15-sent, 16:20</p>
+              </div>
+              <button onclick="openPage('page-reader')" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-4 py-1.5 rounded-lg font-medium transition">O'qish</button>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-[#181828] rounded-xl border border-gray-800/50">
+              <div>
+                <p class="font-medium text-xs">3-bob - Yana jang</p>
+                <p class="text-[10px] text-gray-500 mt-0.5">17-sent, 18:45</p>
+              </div>
+              <button onclick="openPage('page-reader')" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-4 py-1.5 rounded-lg font-medium transition">O'qish</button>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-[#181828] rounded-xl border border-gray-800/50">
+              <div>
+                <p class="font-medium text-xs">4-bob - Ovchi</p>
+                <p class="text-[10px] text-gray-500 mt-0.5">20-sent, 12:10</p>
+              </div>
+              <button onclick="openPage('page-reader')" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-4 py-1.5 rounded-lg font-medium transition">O'qish</button>
+            </div>
+          </div>
 
-    function prevChapter() {
-      const prevNum = currentChapterNum - 1;
-      const exists = currentMangaChapters.some(c => c.chapter_num == prevNum);
-      if (exists) {
-        openReader(prevNum);
-      } else {
-        alert("Bu birinchi bob!");
-      }
-    }
+          <button onclick="openPage('page-reader')" class="w-full mt-4 bg-purple-600 py-3 rounded-xl font-semibold text-xs text-center">1-bobni o'qish</button>
+        </div>
+      </div>
+    </div>
 
-    async function addNewManga() {
-      const title = document.getElementById('mangaTitle').value.trim();
-      const genre = document.getElementById('mangaGenre').value.trim();
-      const rating = document.getElementById('mangaRating').value.trim() || "8.9";
-      const img = document.getElementById('mangaImg').value.trim();
-      const desc = document.getElementById('mangaDesc').value.trim();
+    <!-- SAHIFA: Reader (Vertikal scroll) -->
+    <div id="page-reader" class="hidden fixed inset-0 bg-[#0b0b12] z-50 overflow-y-auto max-w-md mx-auto">
+      <div class="fixed top-0 left-0 right-0 max-w-md mx-auto bg-[#12121f]/90 backdrop-blur-md p-4 flex items-center justify-between z-10 border-b border-gray-800">
+        <button onclick="closePage('page-reader')" class="text-xl">←</button>
+        <h1 class="text-xs font-semibold truncate">1-bob - Uyg'og'dagi dunyo</h1>
+        <div class="w-6"></div>
+      </div>
 
-      if (!title) return alert("Iltimos, manga nomini kiriting!");
+      <!-- Rasmlar tepadan pastga vertikal o'qiladi -->
+      <div class="pt-14 pb-6 flex flex-col items-center w-full">
+        <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-auto object-contain block" alt="Page 1">
+        <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-full h-auto object-contain block" alt="Page 2">
+      </div>
+    </div>
 
-      const { error } = await supabaseClient
-        .from('mangas')
-        .insert([{ title, genre, rating, img, desc }]);
+    <!-- SAHIFA: Profil -->
+    <div id="page-profile" class="hidden fixed inset-0 bg-[#0b0b12] z-50 overflow-y-auto p-4 max-w-md mx-auto">
+      <div class="flex items-center justify-between mb-6">
+        <button onclick="closePage('page-profile')" class="text-xl">←</button>
+        <h1 class="text-base font-bold">Profil</h1>
+        <div class="w-6"></div>
+      </div>
 
-      if (error) {
-        alert("Xatolik: " + error.message);
-      } else {
-        alert("Manga muvaffaqiyatli qo'shildi!");
-        document.getElementById('mangaTitle').value = '';
-        document.getElementById('mangaGenre').value = '';
-        document.getElementById('mangaImg').value = '';
-        document.getElementById('mangaDesc').value = '';
-        showHome();
-        loadMangas();
-      }
-    }
+      <div class="space-y-4">
+        <div class="flex flex-col items-center text-center p-4 bg-[#181828] rounded-2xl border border-gray-800">
+          <img src="https://i.ibb.co/3m9ssdbC/1a7a0126c83aedcfb8c56f81af1893605695f958f97e731c3ab15e747da75135.png" class="w-16 h-16 rounded-full object-cover border-2 border-purple-500 mb-2">
+          <h2 class="font-bold text-base">MangaNova User</h2>
+          <p class="text-xs text-gray-400">@manganovauser</p>
+          <span class="bg-purple-600/30 text-purple-400 text-[10px] px-3 py-1 rounded-full mt-2">★ Premium</span>
+        </div>
 
-    async function addNewChapter() {
-      const mangaId = document.getElementById('selectMangaForChapter').value;
-      const chapterNum = document.getElementById('chapterNum').value;
-      const pagesText = document.getElementById('chapterPages').value.trim();
+        <div class="space-y-2">
+          <button onclick="openPage('page-tg-connect')" class="w-full flex items-center justify-between p-3 bg-[#181828] rounded-xl text-xs border border-gray-800">
+            <span>✈️ Telegram orqali ulanish</span>
+            <span class="text-gray-500">›</span>
+          </button>
+          <button onclick="openPage('page-gmail-connect')" class="w-full flex items-center justify-between p-3 bg-[#181828] rounded-xl text-xs border border-gray-800">
+            <span>✉️ Gmail orqali ulanish</span>
+            <span class="text-gray-500">›</span>
+          </button>
+          <button onclick="openPage('page-sub')" class="w-full flex items-center justify-between p-3 bg-[#181828] rounded-xl text-xs text-purple-400 border border-gray-800">
+            <span>👑 Obuna sotib olish</span>
+            <span class="text-gray-500">›</span>
+          </button>
+        </div>
+      </div>
+    </div>
 
-      if (!mangaId || !chapterNum || !pagesText) {
-        return alert("Iltimos, barcha maydonlarni to'ldiring!");
-      }
+    <!-- SAHIFA: Telegram bilan ulanish -->
+    <div id="page-tg-connect" class="hidden fixed inset-0 bg-[#0b0b12] z-50 overflow-y-auto p-4 max-w-md mx-auto">
+      <div class="flex items-center justify-between mb-6">
+        <button onclick="closePage('page-tg-connect')" class="text-xl">←</button>
+        <h1 class="text-base font-bold">Telegram bilan ulanish</h1>
+        <div class="w-6"></div>
+      </div>
 
-      const pagesArray = pagesText.split(',').map(url => url.trim()).filter(url => url.length > 0);
+      <div class="flex flex-col items-center text-center space-y-4 pt-6">
+        <div class="w-16 h-16 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center text-3xl">✈️</div>
+        <h2 class="text-lg font-bold">Telegram profilini ulang</h2>
+        <p class="text-xs text-gray-400 max-w-xs">Telegram orqali ulanish uchun profilingizni tasdiqlang. Bu sizga sevimlilar, tarix va obuna ma'lumotlarini saqlash imkonini beradi.</p>
 
-      const { error } = await supabaseClient
-        .from('chapters')
-        .insert([{ 
-          manga_id: mangaId, 
-          chapter_num: parseInt(chapterNum), 
-          pages: pagesArray 
-        }]);
+        <button onclick="openPage('page-code-input')" class="w-full bg-purple-600 py-3 rounded-xl font-semibold text-xs mt-4">Telegram bilan ulanish</button>
+      </div>
+    </div>
 
-      if (error) {
-        alert("Xatolik: " + error.message);
-      } else {
-        alert("Bob muvaffaqiyatli qo'shildi!");
-        document.getElementById('chapterNum').value = '';
-        document.getElementById('chapterPages').value = '';
-      }
-    }
+    <!-- SAHIFA: Kodni kiritish -->
+    <div id="page-code-input" class="hidden fixed inset-0 bg-[#0b0b12] z-50 overflow-y-auto p-4 max-w-md mx-auto">
+      <div class="flex items-center justify-between mb-6">
+        <button onclick="closePage('page-code-input')" class="text-xl">←</button>
+        <h1 class="text-base font-bold">Kodni kiritish</h1>
+        <div class="w-6"></div>
+      </div>
 
-    function populateMangaSelect() {
-      const select = document.getElementById('selectMangaForChapter');
-      if (!select) return;
-      select.innerHTML = '';
-      if (allMangas.length === 0) {
-        select.innerHTML = '<option value="">Avval manga qo\'shing</option>';
-        return;
-      }
-      allMangas.forEach(m => {
-        select.innerHTML += `<option value="${m.id}">${m.title}</option>`;
-      });
-    }
+      <div class="flex flex-col items-center text-center space-y-4 pt-4">
+        <div class="bg-[#181828] border border-gray-800 p-4 rounded-2xl w-full">
+          <p class="text-xs text-gray-400 mb-2">Sizning tasdiqlash kodingiz:</p>
+          <p class="text-2xl font-bold tracking-widest text-purple-400">7F3K9</p>
+        </div>
 
-    function searchManga() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const filtered = allMangas.filter(m => m.title.toLowerCase().includes(query));
-      renderMangas(filtered);
-    }
+        <p class="text-xs text-gray-400">Telegram bot sizga yuborgan 5 daqiqalik kodni kiriting.</p>
 
-    loadMangas();
-  </script>
-</body>
-</html>
+        <input type="text" placeholder="Kodni kiriting..." class="w-full bg-[#181828] border border-gray-800 rounded-xl p-3 text-xs text-center focus:outline-none focus:border-purple-500">
+
+        <button onclick="closePage('page-code-input')" class="w-full bg-purple-600 py-3 rounded-xl font-semibold text-xs">Tasdiqlash</button>
+      </div>
+    </div>
+
+    <!-- SAHIFA: Gmail orqali ulanish -->
+    <div id="page-gmail-connect" class="hidden fixed inset-0 bg-[#0b0b12] z-50 overflow-y-auto p-4 max-w-md mx-auto">
+      <div class="flex items-center justify-between mb-6">
+        <button onclick="closePage('page-gmail-connect')" class="text-xl">←</button>
+        <h1 class="text-base font-bold">Gmail orqali ulanish</h1>
+        <div class="w-6"></div>
+      </div>
+
+      <div class="flex flex-col items-center text-center space-y-4 pt-4">
+        <div class="w-16 h-16 bg-red-500/20 text-red-400 rounded-full flex items-center justify-center text-3xl">✉️</div>
+        <h2 class="text-lg font-bold">Gmail bilan ulanish</h2>
+        <p class="text-xs text-gray-400 max-w-xs">Gmail orqali profil ulash orqali ham mangalarni o'qish, sevimlilar va tarixni saqlash imkoniyati mavjud.</p>
+
+        <button class="w-full bg-white text-black py-3 rounded-xl font-semibold text-xs flex items-center justify-center gap-2">
+          <span>G</span> Google bilan davom etish
+        </button>
+
+        <div class="w-full flex items-center gap-2 my-2">
+          <div class="flex-1 h-px bg-gray-800"></div>
+          <span class="text-[10px] text-gray-500">Yoki</span>
+          <div class="flex-1 h-px bg-gray-800"></div>
+        </div>
+
+        <input
