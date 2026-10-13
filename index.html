@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -398,4 +399,150 @@
           <div class="flex-1 h-px bg-gray-800"></div>
         </div>
 
-        <input
+        <input type="email" placeholder="Email manzilingizni kiriting" class="w-full bg-[#181828] border border-gray-800 rounded-xl p-3 text-xs focus:outline-none focus:border-purple-500">
+
+        <button onclick="closePage('page-gmail-connect')" class="w-full bg-purple-600 py-3 rounded-xl font-semibold text-xs">Davom etish</button>
+      </div>
+    </div>
+
+    <!-- SAHIFA: Telegram kanal -->
+    <div id="page-tg-channel" class="hidden fixed inset-0 bg-[#0b0b12] z-50 overflow-y-auto p-4 max-w-md mx-auto">
+      <div class="flex items-center justify-between mb-6">
+        <button onclick="closePage('page-tg-channel')" class="text-xl">←</button>
+        <h1 class="text-base font-bold">Telegram kanal</h1>
+        <div class="w-6"></div>
+      </div>
+
+      <div class="flex flex-col items-center text-center space-y-4 pt-8">
+        <div class="w-20 h-20 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center text-4xl">✈️</div>
+        <h2 class="text-xl font-bold">MangaNova Kanali</h2>
+        <p class="text-xs text-gray-400 max-w-xs">Eng so'nggi yangiliklar, yangi mangalar va tezkor e'lonlar shu kanalda!</p>
+
+        <a href="https://t.me/MangaNova" target="_blank" class="w-full bg-blue-500 py-3 rounded-xl font-semibold text-xs flex items-center justify-center gap-2">
+          <span>Kanalga o'tish</span> ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- SAHIFA: Telegram bot -->
+    <div id="page-tg-bot" class="hidden fixed inset-0 bg-[#0b0b12] z-50 overflow-y-auto p-4 max-w-md mx-auto">
+      <div class="flex items-center justify-between mb-6">
+        <button onclick="closePage('page-tg-bot')" class="text-xl">←</button>
+        <h1 class="text-base font-bold">Telegram bot</h1>
+        <div class="w-6"></div>
+      </div>
+
+      <div class="flex flex-col items-center text-center space-y-4 pt-8">
+        <div class="w-20 h-20 bg-purple-500/20 text-purple-400 rounded-full flex items-center justify-center text-4xl">🤖</div>
+        <h2 class="text-xl font-bold">@MangaNovauzbot</h2>
+        <p class="text-xs text-gray-400 max-w-xs">Savollar, yordam va tezkor yangiliklar uchun botga yozing!</p>
+
+        <a href="https://t.me/MangaNovauzbot" target="_blank" class="w-full bg-purple-600 py-3 rounded-xl font-semibold text-xs flex items-center justify-center gap-2">
+          <span>Botga o'tish</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- SAHIFA: Obuna sotib olish -->
+    <div id="page-sub" class="hidden fixed inset-0 bg-[#0b0b12] z-50 overflow-y-auto p-4 max-w-md mx-auto">
+      <div class="flex items-center justify-between mb-6">
+        <button onclick="closePage('page-sub')" class="text-xl">←</button>
+        <h1 class="text-base font-bold">Obuna sotib olish</h1>
+        <div class="w-6"></div>
+      </div>
+
+      <div class="space-y-4">
+        <h2 class="text-lg font-bold text-center">Premium imkoniyatlar</h2>
+        
+        <ul class="space-y-3 bg-[#181828] p-4 rounded-2xl border border-gray-800">
+          <li class="flex items-center gap-2 text-xs">
+            <span class="text-purple-400 font-bold">✓</span> Ko'proq mangalar, kamroq reklama, va maxsus imkoniyatlar!
+          </li>
+        </ul>
+
+        <!-- Tariflar -->
+        <div class="space-y-2 pt-2">
+          <div class="flex items-center justify-between p-3.5 bg-[#181828] border border-gray-800 rounded-xl">
+            <div>
+              <p class="font-bold text-xs">1 hafta</p>
+              <p class="text-[10px] text-gray-400">12 000 so'm</p>
+            </div>
+            <button class="bg-purple-600 text-xs px-4 py-1.5 rounded-lg font-medium">Tanlash</button>
+          </div>
+          <div class="flex items-center justify-between p-3.5 bg-[#181828] border border-purple-500 rounded-xl">
+            <div>
+              <p class="font-bold text-xs">1 oy</p>
+              <p class="text-[10px] text-gray-400">29 000 so'm</p>
+            </div>
+            <button class="bg-purple-600 text-xs px-4 py-1.5 rounded-lg font-medium">Tanlangan</button>
+          </div>
+          <div class="flex items-center justify-between p-3.5 bg-[#181828] border border-gray-800 rounded-xl">
+            <div>
+              <p class="font-bold text-xs">3 oy</p>
+              <p class="text-[10px] text-gray-400">69 000 so'm</p>
+            </div>
+            <button class="bg-purple-600 text-xs px-4 py-1.5 rounded-lg font-medium">Tanlash</button>
+          </div>
+          <div class="flex items-center justify-between p-3.5 bg-[#181828] border border-gray-800 rounded-xl">
+            <div>
+              <p class="font-bold text-xs">1 yil</p>
+              <p class="text-[10px] text-gray-400">199 000 so'm</p>
+            </div>
+            <button class="bg-purple-600 text-xs px-4 py-1.5 rounded-lg font-medium">Tanlash</button>
+          </div>
+        </div>
+
+        <button onclick="closePage('page-sub')" class="w-full bg-purple-600 py-3 rounded-xl font-semibold text-xs mt-4">To'lovni davom ettirish</button>
+      </div>
+    </div>
+
+    <!-- Pastki menyu (Bottom Navigation Bar) -->
+    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#12121f]/95 backdrop-blur-md border-t border-gray-800 flex justify-around p-2 z-40">
+      <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center gap-1 text-purple-500">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        <span class="text-[10px]">Bosh sahifa</span>
+      </button>
+      <button onclick="switchTab('catalog')" id="nav-catalog" class="flex flex-col items-center gap-1 text-gray-400">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <span class="text-[10px]">Mangalar</span>
+      </button>
+      <button onclick="switchTab('favs')" id="nav-favs" class="flex flex-col items-center gap-1 text-gray-400">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+        <span class="text-[10px]">Sevimlilar</span>
+      </button>
+      <button onclick="switchTab('menu')" id="nav-menu" class="flex flex-col items-center gap-1 text-gray-400">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        <span class="text-[10px]">Menyu</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script>
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById('tab-' + tab).classList.remove('hidden');
+
+      const tabs = ['home', 'catalog', 'favs', 'menu'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('nav-' + t);
+        if (t === tab) {
+          btn.classList.remove('text-gray-400');
+          btn.classList.add('text-purple-500');
+        } else {
+          btn.classList.remove('text-purple-500');
+          btn.classList.add('text-gray-400');
+        }
+      });
+    }
+
+    function openPage(pageId) {
+      document.getElementById(pageId).classList.remove('hidden');
+    }
+
+    function closePage(pageId) {
+      document.getElementById(pageId).classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
